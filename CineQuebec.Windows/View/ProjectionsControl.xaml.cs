@@ -1,6 +1,7 @@
 ﻿using CineQuebec.Windows.BLL.Interfaces;
 using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL.Data;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace CineQuebec.Windows.View
 		private readonly IFilmService _filmService;
 		private readonly IReservationService _reservationService;
 		private List<Projection>? _filmAffiche;
+		private List<Film>? _filmVisionne;
 
 		public ProjectionsControl(IProjectionService pProjectionService, IFilmService pFilmService, IReservationService pReservationService)
 		{
@@ -35,6 +37,7 @@ namespace CineQuebec.Windows.View
 			_reservationService = pReservationService;
 
 			ChargerFilms();
+			ChargerFilmsVisionner();
 		}
 
 		private async void ChargerFilms()
@@ -79,6 +82,19 @@ namespace CineQuebec.Windows.View
 			}
 		}
 
+		private void AfficherFilmsVisionne()
+		{
+			lstFilmsVisionner.Items.Clear();
+
+			if(_filmVisionne is not null)
+			{
+				foreach(Film film in _filmVisionne)
+				{
+					lstFilmsVisionner.Items.Add(film);
+				}
+			}
+		}
+
 		private void Click_Projection(object sender, MouseButtonEventArgs e)
 		{
 			Projection? projection = ((TextBlock)sender).DataContext as Projection;
@@ -90,6 +106,30 @@ namespace CineQuebec.Windows.View
 			if (result == true)
 			{
 				MessageBox.Show("La réservation a été effectuée avec succès!", "Réservation", MessageBoxButton.OK, MessageBoxImage.Information);
+			}
+		}
+
+		private async void ChargerFilmsVisionner()
+		{
+			try
+			{
+				Abonne user = (Abonne)App.Current.Properties["UserConnect"]!;
+
+				List<Reservation> reservations = _reservationService.ObtenirReservationsAbonne(user.Id);
+
+				List<ObjectId> projectionsIds = reservations.Select(r => r.IdProjection).ToList();
+
+				List<Projection> projections = await _projectionService.GetProjectionsWithIds(projectionsIds);
+
+				List<ObjectId> filmsIds = projections.Select(p => p.IdFilm).ToList();
+
+				_filmVisionne = await _filmService.GetFilmsWithIds(filmsIds);
+
+				AfficherFilmsVisionne();
+
+			}catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Une erreur est survenue", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 	}

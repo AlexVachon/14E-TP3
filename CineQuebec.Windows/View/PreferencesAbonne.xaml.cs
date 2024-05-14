@@ -1,5 +1,6 @@
 ﻿using CineQuebec.Windows.BLL.Interfaces;
 using CineQuebec.Windows.DAL.Data;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,32 +23,32 @@ namespace CineQuebec.Windows.View
     public partial class PreferencesAbonne : Window
     {
         private readonly IAbonneService _abonneService;
-        private readonly IFilmService _filmService;
+        private readonly IActeurService _acteurService;
         private readonly ICategorieService _categorieService;
         private readonly IRealisateurService _realisateurService;
         private readonly IPreferenceService _preferenceService;
-
+        
         List<Abonne> _listeDesUsers;
-        List<Film>? _listeDesFilms;
+        List<Acteur>? _listeDesActeurs;
         List<Categorie> _listeCategories;
         List<Realisateur> _listeRealisateurs;
         List<Preference> _preferences;
-        public PreferencesAbonne(IFilmService filmService, ICategorieService categorieService, IRealisateurService realisateurService, IPreferenceService preferenceService)
+        public PreferencesAbonne(IActeurService acteurService, ICategorieService categorieService, IRealisateurService realisateurService, IPreferenceService preferenceService)
         {
             InitializeComponent();
             //_abonneService = abonneService;
-            _filmService = filmService;
+            _acteurService = acteurService;
             _categorieService = categorieService;
             _realisateurService = realisateurService;
             _preferenceService = preferenceService;
             //_listeDesUsers = _abonneService.ObtenirAbonnes();
-            _listeDesFilms = _filmService.GetAllFilms().Result;
+            _listeDesActeurs = _acteurService.ObtenirActeurs();
             _listeCategories = _categorieService.GetAllCategories().Result;
             _listeRealisateurs = _realisateurService.ObtenirRealisateurs();
             var user = App.Current.Properties["UserConnect"] as User;
             _preferences = _preferenceService.ObtenirPreferencesAbonne(user.Id);
             AfficherListeRealisateur();
-            AfficherListeFilms();
+            AfficherListeActeurs();
             AfficherListeCategories();
             AfficherListePreferences();
         }
@@ -61,12 +62,12 @@ namespace CineQuebec.Windows.View
             }
         }
 
-        private void AfficherListeFilms()
+        private void AfficherListeActeurs()
         {
-            lstFilms.Items.Clear();
-            foreach (Film film in _listeDesFilms)
+            lstActeurs.Items.Clear();
+            foreach (Acteur acteur in _listeDesActeurs)
             {
-                lstFilms.Items.Add(film);
+                lstActeurs.Items.Add(acteur);
             }
         }
         private void AfficherListeCategories()
@@ -89,17 +90,27 @@ namespace CineQuebec.Windows.View
 
         private void Button_Ajouter_Realisateur_Click(object sender, RoutedEventArgs e)
         {
-            if (lstRealisateurs.SelectedItem != null)
+            Abonne abonne = (App.Current.Properties["UserConnect"]) as Abonne;
+            List<Preference> preferencesRealisateur = _preferenceService.ObtenirPreferencesAbonne(abonne.Id);
+            if (preferencesRealisateur.Where(x => x.IdRealisateur != ObjectId.Empty).Count() >= 5)
             {
-                Preference preference = new Preference { IdRealisateur = (lstRealisateurs.SelectedItem as Realisateur).Id };
-                _preferenceService.AjouterPreference(preference);
-                preference.Realisateur = lstRealisateurs.SelectedItem as Realisateur;
-                lstPrefUser.Items.Add(preference);
+                MessageBox.Show("Vous ne pouvez pas selectionner plus de cinq réalisateurs");
             }
             else
             {
-                MessageBox.Show($"Vous devez selectionner un réalisateur");
+                if (lstRealisateurs.SelectedItem != null)
+                {
+                    Preference preference = new Preference { IdRealisateur = (lstRealisateurs.SelectedItem as Realisateur).Id, IdAbonne = abonne.Id };
+                    _preferenceService.AjouterPreference(preference);
+                    preference.Realisateur = lstRealisateurs.SelectedItem as Realisateur;
+                    lstPrefUser.Items.Add(preference);
+                }
+                else
+                {
+                    MessageBox.Show($"Vous devez selectionner un réalisateur");
+                }
             }
+          
         }
 
         private void lstRealisateurs_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,34 +118,54 @@ namespace CineQuebec.Windows.View
 
         }
 
-        private void Bouton_Ajouter_Film(object sender, RoutedEventArgs e)
+        private void Bouton_Ajouter_Acteur(object sender, RoutedEventArgs e)
         {
-            if (lstFilms.SelectedItem != null)
+            Abonne abonne = (App.Current.Properties["UserConnect"]) as Abonne;
+            List<Preference> preferencesActeurs = _preferenceService.ObtenirPreferencesAbonne(abonne.Id);
+            if (preferencesActeurs.Where(x => x.IdActeur != ObjectId.Empty).Count() >= 5)
             {
-                Preference preference = new Preference { IdFilm = (lstFilms.SelectedItem as Film).Id };
-                _preferenceService.AjouterPreference(preference);
-                preference.Film = lstFilms.SelectedItem as Film;
-                lstPrefUser.Items.Add(preference);
+                MessageBox.Show("Vous ne pouvez pas selectionner plus de cinq acteurs");
             }
             else
             {
-                MessageBox.Show($"Vous devez selectionner un film");
+                if (lstActeurs.SelectedItem != null)
+                {
+                    Preference preference = new Preference { IdActeur = (lstActeurs.SelectedItem as Acteur).Id, IdAbonne = abonne.Id };
+                    _preferenceService.AjouterPreference(preference);
+                    preference.Acteur = lstActeurs.SelectedItem as Acteur;
+                    lstPrefUser.Items.Add(preference);
+                }
+                else
+                {
+                    MessageBox.Show($"Vous devez selectionner un film");
+                }
             }
+            
         }
 
         private void Button_Ajouter_Categorie(object sender, RoutedEventArgs e)
         {
-            if (lstCategories.SelectedItem != null)
+            Abonne abonne = (App.Current.Properties["UserConnect"]) as Abonne;
+            List<Preference> preferencesCategorie = _preferenceService.ObtenirPreferencesAbonne(abonne.Id);
+            if (preferencesCategorie.Where(x =>x.IdCategorie != ObjectId.Empty).Count() >=3)
             {
-                Preference preference = new Preference { IdCategorie = (lstCategories.SelectedItem as Categorie).Id };
-                _preferenceService.AjouterPreference(preference);
-                preference.Categorie = lstCategories.SelectedItem as Categorie;
-                lstPrefUser.Items.Add(preference);
+                MessageBox.Show("Vous ne pouvez pas selectionner plus de trois catégories");
             }
             else
             {
-                MessageBox.Show($"Vous devez selectionner une catégorie");
+                if (lstCategories.SelectedItem != null)
+                {
+                    Preference preference = new Preference { IdCategorie = (lstCategories.SelectedItem as Categorie).Id, IdAbonne = abonne.Id };
+                    _preferenceService.AjouterPreference(preference);
+                    preference.Categorie = lstCategories.SelectedItem as Categorie;
+                    lstPrefUser.Items.Add(preference);
+                }
+                else
+                {
+                    MessageBox.Show($"Vous devez selectionner une catégorie");
+                }
             }
+          
         }
     }
 }

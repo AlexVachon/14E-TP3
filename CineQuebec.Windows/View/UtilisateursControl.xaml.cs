@@ -28,17 +28,22 @@ namespace CineQuebec.Windows.View
         private readonly IAbonneService _abonneService;
         private readonly ITypeRecompenseService _typeRecompenseService;
         private readonly IRecompenseService _recompenseService;
-
+        private readonly IProjectionService _projectionService;
+        private readonly IFilmService _filmService;
+        public Recompense recompense;
         List<Abonne> _listeDesUsers;
         
-        public UtilisateursControl(IAbonneService abonneService, ITypeRecompenseService typeRecompenseService, IRecompenseService recompenseService)
+        public UtilisateursControl(IAbonneService abonneService, ITypeRecompenseService typeRecompenseService, IRecompenseService recompenseService,
+            IProjectionService projectionService, IFilmService filmService)
         {
             InitializeComponent();
 
             _typeRecompenseService = typeRecompenseService;
             _recompenseService = recompenseService;
             _abonneService = abonneService;
-			_listeDesUsers = _abonneService.ObtenirAbonnes().OrderByDescending(x=>x.Reservations.Count).ToList();
+            _projectionService = projectionService;
+            _filmService = filmService;
+            _listeDesUsers = _abonneService.ObtenirAbonnes().OrderByDescending(x=>x.Reservations.Count).ToList();
 
             AfficherListeUtilisateurs();
         }
@@ -63,5 +68,49 @@ namespace CineQuebec.Windows.View
             }
         }
 
-	}
+
+        private void Button_Premiere_Click(object sender, RoutedEventArgs e)
+        {
+            RecompenseControl recompenseControl = new RecompenseControl(_abonneService, _typeRecompenseService, _recompenseService, _projectionService, _filmService);
+            recompenseControl.TypeRecompense = "Assister à une avant première";
+            recompenseControl.AfficherListeAbonnesPremiere();
+            if (recompenseControl.ShowDialog() == true)
+            {
+                recompense = recompenseControl.Recompense;
+                Abonne abonneSelectionne;
+                if (recompenseControl.Recompense != null)
+                {
+                    abonneSelectionne = _listeDesUsers.Find(x => x.Id == recompense.IdAbonne);
+                    abonneSelectionne.Recompenses.Add(recompense);
+                }
+
+                AfficherListeUtilisateurs();
+            }
+           
+            
+        }
+        private void Button_Ticket_Click(object sender, RoutedEventArgs e)
+        {
+            RecompenseControl recompenseControl = new RecompenseControl(_abonneService, _typeRecompenseService, _recompenseService, _projectionService, _filmService);
+            recompenseControl.TypeRecompense = "Ticket gratuit";
+            recompenseControl.AfficherListeAbonnesTicket();
+            if (recompenseControl.ShowDialog() == true)
+            {
+                recompense = recompenseControl.Recompense;
+                Abonne abonneSelectionne;
+                if (recompenseControl.Recompense != null)
+                {
+                    abonneSelectionne = _listeDesUsers.Find(x => x.Id == recompense.IdAbonne);
+                    abonneSelectionne.Recompenses.Add(recompense);
+                }
+                AfficherListeUtilisateurs();
+            }
+           
+            
+        }
+
+      
+
+      
+    }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CineQuebec.Windows.View"
         mc:Ignorable="d"
-        Title="InformationsAbonne" Height="700" Width="440">
+        Title="InformationsAbonne" Height="620" Width="440">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -23,7 +23,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <GroupBox Grid.Column="0" Grid.Row="1"  Header="Informations Abonné" Height="650">
+        <GroupBox Grid.Column="0" Grid.Row="1"  Header="Informations Abonné" Height="620">
             <Grid Height="612" Margin="0,0,-15,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="37*"/>
@@ -89,7 +89,7 @@
                 <TextBlock Grid.Row="7" Margin="19,5,4,30" Text="Mes récompences" Grid.ColumnSpan="3"  />
                 <ListBox x:Name="lstRecompenses"  Grid.Row="7"  Grid.Column="3" Width="200" Grid.ColumnSpan="2" Margin="24,0,21,0" Grid.RowSpan="1" >
                 </ListBox>
-                <Button Grid.Row="8" Grid.Column="1" Margin="88,17,130,-31" FontWeight="Bold" Grid.ColumnSpan="4" Click="Button_Click" >Récompenser cet abonné</Button>
+               
 
             </Grid>
         </GroupBox>

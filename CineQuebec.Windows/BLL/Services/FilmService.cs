@@ -83,7 +83,7 @@ namespace CineQuebec.Windows.BLL.Services
 		{
 			try
 			{
-				return await _filmRepo.GetAllFilmsAffiche(projections);
+				return await _filmRepo.GetAllFilmsAffiche(projections).ConfigureAwait(false);
 			}catch(Exception ex)
 			{
 				Console.Error.WriteLine(ex.Message);

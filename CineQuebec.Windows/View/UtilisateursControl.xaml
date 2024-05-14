@@ -23,7 +23,9 @@
         <GroupBox Grid.Row="1" Grid.Column="1" Header="Liste des utilisateurs">
             <ListBox x:Name="lstUsers" Margin="0,0,0,-357" SelectionChanged="lstUsers_SelectionChanged"  />
         </GroupBox>
-       
+        <Button Grid.Column="0" Grid.Row="2" Margin="10,130,12,-147"  FontWeight="Bold" Click="Button_Ticket_Click" >Récompense ticket gratuit</Button>
+        <Button Grid.Column="0" Grid.Row="2" Margin="9,54,13,-71"  FontWeight="Bold" Click="Button_Premiere_Click" >Récompense avant première</Button>
+
 
     </Grid>
 </Window>

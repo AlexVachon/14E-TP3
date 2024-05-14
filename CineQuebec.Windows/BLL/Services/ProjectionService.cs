@@ -54,7 +54,7 @@ namespace CineQuebec.Windows.BLL.Services
         {
             try
             {
-                return await _projectionRepository.GetAllProjections();
+                return await _projectionRepository.GetAllProjections().ConfigureAwait(false);
             }catch (Exception ex)
             {
                 Console.WriteLine("Impossible de recuperer les Projections: ", ex.Message, "Erreur");

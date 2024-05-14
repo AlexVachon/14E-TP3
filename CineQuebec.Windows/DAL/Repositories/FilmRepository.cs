@@ -92,7 +92,7 @@ namespace CineQuebec.Windows.DAL.Repositories
 				);
 
 				
-				return await _collection.Find(filter).ToListAsync();
+				return await _collection.Find(filter).ToListAsync().ConfigureAwait(false);
 			}
 			catch (Exception ex)
 			{

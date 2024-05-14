@@ -82,15 +82,6 @@ namespace CineQuebec.Windows.View
                 }
             }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Recompenses recompenses = new Recompenses(_typeRecompenseService, _abonne, _recompenseService);
-            if (recompenses.ShowDialog() == true)
-            {
-                Recompense nouvelleRecompense = recompenses.Recompense;
-                _abonne.Recompenses.Add(nouvelleRecompense);
-                AfficherRecompenseAbonne(_abonne);
-            }
-        }
+       
     }
 }

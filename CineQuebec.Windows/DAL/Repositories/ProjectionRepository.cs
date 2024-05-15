@@ -47,7 +47,7 @@ namespace CineQuebec.Windows.DAL.Repositories
         {
             try
             {
-                return await _collection.Aggregate().ToListAsync();
+                return await _collection.Aggregate().ToListAsync().ConfigureAwait(false);
             }catch (Exception ex)
             {
 				Console.WriteLine("Impossible d'obtenir la collection " + ex.Message, "Erreur");

@@ -18,13 +18,7 @@ namespace CineQuebec.Windows.BLL.Services
         private readonly IRealisateurService _realisateurService;
         private readonly ICategorieService _categorieService;
 
-   //     public PreferenceService()
-   //     {
-			//_preferenceRepository = new PreferenceRepository();
-   //         _acteurService = new ActeurService();
-   //         _realisateurService = new RealisateurService();
-   //         _categorieService = new CategorieService();
-   //     }
+ 
         public PreferenceService(IPreferenceRepository preferenceRepository)
         {
             _preferenceRepository = preferenceRepository;        

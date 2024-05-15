@@ -1,4 +1,6 @@
-﻿using CineQuebec.Windows.DAL.Data;
+﻿using CineQuebec.Windows.BLL.Interfaces;
+using CineQuebec.Windows.BLL.Services;
+using CineQuebec.Windows.DAL.Data;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
@@ -21,11 +23,17 @@ namespace CineQuebec.Windows.View
     /// </summary>
     public partial class InformationsAbonne : Window
     {
+        private readonly ITypeRecompenseService _typeRecompenseService;
+        private readonly IRecompenseService _recompenseService;
+        private Abonne _abonne;
         List<Acteur> _acteurs = new List<Acteur>();
-        public InformationsAbonne(Abonne abonne)
+        public InformationsAbonne(Abonne abonne, ITypeRecompenseService pTypeRecompenseService, IRecompenseService pRecompenseService)
         {
             InitializeComponent();
             SelectUser(abonne);
+            _typeRecompenseService = pTypeRecompenseService;
+            _recompenseService = pRecompenseService;
+            _abonne = abonne;
         }
 
         private void SelectUser(Abonne abonne)
@@ -38,7 +46,7 @@ namespace CineQuebec.Windows.View
                 txtNbProjection.Text=abonne.Reservations.Count.ToString();
                 lstActeurs.Items.Add(abonne);
                 AfficherPreferences(abonne);
-
+                AfficherRecompenseAbonne(abonne);
 
             }
         }
@@ -63,5 +71,17 @@ namespace CineQuebec.Windows.View
                
             }
         }
+        public void AfficherRecompenseAbonne(Abonne abonne)
+        {
+            lstRecompenses.Items.Clear();
+            foreach(var recompense in abonne.Recompenses)
+            {
+                if (recompense.IdAbonne !=null && recompense.IdTypeRecompense !=null)
+                {
+                    lstRecompenses.Items.Add(recompense);
+                }
+            }
+        }
+       
     }
 }

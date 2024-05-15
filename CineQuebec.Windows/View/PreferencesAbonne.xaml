@@ -25,10 +25,10 @@
             <ListBox x:Name="lstRealisateurs" Margin="0,0,0,-245" SelectionChanged="lstRealisateurs_SelectionChanged"   />
         </GroupBox>
         <Button Grid.Column="0" Grid.Row="3" Margin="16,261,5,-278"  FontWeight="Bold" Click="Button_Ajouter_Realisateur_Click">Ajouter préférences réalisateurs</Button>
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="Liste des films">
-            <ListBox x:Name="lstFilms" Margin="0,0,0,-245"   />
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Liste des acteurs">
+            <ListBox x:Name="lstActeurs" Margin="0,0,0,-245"   />
         </GroupBox>
-        <Button Grid.Column="1" Grid.Row="3" Margin="16,261,5,-278"  FontWeight="Bold" Click="Bouton_Ajouter_Film">Ajouter préférences films</Button>
+        <Button Grid.Column="1" Grid.Row="3" Margin="16,261,5,-278"  FontWeight="Bold" Click="Bouton_Ajouter_Acteur">Ajouter préférences acteur</Button>
         <GroupBox Grid.Row="1" Grid.Column="2" Header="Liste des Catégories">
             <ListBox x:Name="lstCategories" Margin="0,0,0,-245"   />
         </GroupBox>

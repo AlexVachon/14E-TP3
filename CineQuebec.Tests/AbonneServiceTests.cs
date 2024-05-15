@@ -25,13 +25,16 @@ namespace CineQuebec.Tests
             Mock<IAbonneRepository> mockRepo = new Mock<IAbonneRepository>();
             Mock<IReservationService> mockReservation = new Mock<IReservationService>();
             Mock<IPreferenceService> mockPreference = new Mock<IPreferenceService>();
+            Mock<IRecompenseService> mockRecompense = new Mock<IRecompenseService>();
             List<Reservation> reservations = new List<Reservation> { new Reservation(), new Reservation() };
             List<Preference> preferences = new List<Preference>() { new Preference(), new Preference() };
+            List<Recompense> recompenses = new List<Recompense>() { new Recompense(), new Recompense() };
             List<Abonne> abonnes = new List<Abonne> { new Abonne { Id = ObjectId.GenerateNewId(), Reservations = reservations, Preferences = preferences }, new Abonne { Id = ObjectId.GenerateNewId(), Reservations = reservations, Preferences = preferences } };
             mockRepo.Setup(repo => repo.ObtenirAbonnes()).Returns(abonnes);
             mockReservation.Setup(x => x.ObtenirReservationsAbonne(It.IsAny<ObjectId>())).Returns(reservations);
-            mockPreference.Setup(y => y.ObtenirPreferencesAbonne(It.IsAny<ObjectId>())).Returns(preferences);
-           var abonneService = new AbonneService(mockRepo.Object, mockReservation.Object, mockPreference.Object);
+            mockPreference.Setup(y => y.ObtenirPreferencesAbonne(It.IsAny<ObjectId>())).Returns(preferences);          
+            mockRecompense.Setup(z => z.ObtenirRecompensesAbonne(It.IsAny<ObjectId>())).Returns(recompenses);
+            var abonneService = new AbonneService(mockRepo.Object, mockReservation.Object, mockPreference.Object, mockRecompense.Object);
 
            
             List<Abonne> resultat = abonneService.ObtenirAbonnes();

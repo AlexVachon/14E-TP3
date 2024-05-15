@@ -63,7 +63,7 @@ namespace CineQuebec.Windows.DAL.Repositories
         {
             try
             {
-                _collection.InsertOneAsync(preference);
+                _collection.InsertOne(preference);
                 return true;
             }
             catch (Exception ex)

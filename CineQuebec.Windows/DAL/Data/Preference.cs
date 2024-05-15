@@ -25,7 +25,7 @@ namespace CineQuebec.Windows.DAL.Data
         {
             if (IdFilm !=ObjectId.Empty )
             {
-                return $"Acteur : {Film.Nom}";
+                return $"Film : {Film.Nom}";
             }
             else if( IdRealisateur != ObjectId.Empty)
             {
@@ -33,11 +33,15 @@ namespace CineQuebec.Windows.DAL.Data
             }
             else if (IdCategorie != ObjectId.Empty)
             {
-                return $" Categorie : {Categorie.NameCategorie}";
+                return $"Categorie : {Categorie.NameCategorie}";
+            }
+            else if(IdActeur != ObjectId.Empty)
+            {
+                return $"Acteur : {Acteur.NameActeur}";
             }
             else
             {
-                return $"Acteur : {Acteur.NameActeur}";
+                return "";
             }
            
         }

@@ -19,13 +19,15 @@ namespace CineQuebec.Windows.BLL.Services
         private readonly IAbonneRepository _abonneRepository;
         private readonly IReservationService _reservationService;
         private readonly IPreferenceService _preferenceService;
+        private readonly IRecompenseService _recompenseService;
          
 
-		public AbonneService (IAbonneRepository pAbonneRepo, IReservationService pReservationService, IPreferenceService pPrefService )
+		public AbonneService (IAbonneRepository pAbonneRepo, IReservationService pReservationService, IPreferenceService pPrefService, IRecompenseService pRecompenseService )
         {
             _abonneRepository = pAbonneRepo;
             _reservationService = pReservationService;
             _preferenceService = pPrefService;
+            _recompenseService = pRecompenseService;
         }
 
 		/// <summary>
@@ -45,6 +47,7 @@ namespace CineQuebec.Windows.BLL.Services
                 {
                     abonne.Reservations = _reservationService.ObtenirReservationsAbonne(abonne.Id);
                     abonne.Preferences = _preferenceService.ObtenirPreferencesAbonne(abonne.Id);
+                    abonne.Recompenses = _recompenseService.ObtenirRecompensesAbonne(abonne.Id);
                 }
                
             }

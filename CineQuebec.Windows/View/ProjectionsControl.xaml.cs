@@ -35,6 +35,7 @@ namespace CineQuebec.Windows.View
 
 		private List<Projection>? _filmAffiche;
 		private List<Film>? _filmVisionne;
+		private List<FilmNote> _filmNotes;
 
 		public class FilmNote
 		{
@@ -51,6 +52,8 @@ namespace CineQuebec.Windows.View
 			_filmService = pFilmService;
 			_reservationService = pReservationService;
 			_noteService = noteService;
+
+			_filmNotes = new List<FilmNote>();
 
 			ChargerFilms();
 			ChargerFilmsVisionner();
@@ -100,14 +103,19 @@ namespace CineQuebec.Windows.View
 
 		private async void AfficherFilmsVisionne()
 		{
-			lstFilmsVisionner.Items.Clear();
-
-			if(_filmVisionne is not null)
+			_filmNotes.Clear();
+			if (_filmVisionne is not null)
 			{
 				foreach(Film film in _filmVisionne)
 				{
 					FilmNote filmNote = new FilmNote() { Film = film, NoteFilm = await _noteService.GetAVGFilm(film.Id), NoteUtilisateur = await _noteService.GetNoteAbonneForFilm(film.Id, user.Id)};
-					lstFilmsVisionner.Items.Add(filmNote);
+					_filmNotes.Add(filmNote);
+				}
+				
+				lstFilmsVisionner.Items.Clear();
+				foreach (FilmNote film in _filmNotes)
+				{
+					lstFilmsVisionner.Items.Add(film);
 				}
 			}
 		}

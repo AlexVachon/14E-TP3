@@ -16,7 +16,6 @@ namespace CineQuebec.Windows.DAL.Data
         public List<Realisateur> Realisateurs { get; set; }
         public List<Acteur> Acteurs { get; set; }
         public string Nom {  get; set; }
-        public double? NoteMoyenne { get; set; } = null;
 
         public Film()
         {

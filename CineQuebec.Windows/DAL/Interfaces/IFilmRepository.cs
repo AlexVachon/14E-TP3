@@ -18,7 +18,7 @@ namespace CineQuebec.Windows.DAL.Interfaces
         Task<UpdateResult?> UpdateFilm(Film film);
 		Task<Film> GetFilmWithProjection(Projection projection);
 
-        Task<UpdateResult> UpdateNoteMoyenne(Film pFilm, double pNote);
+        //Task<UpdateResult> UpdateNoteMoyenne(Film pFilm, double pNote);
         Task<List<Film>> GetFilmsWithIds(List<ObjectId> pIds);
 
 	}

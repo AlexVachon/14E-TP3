@@ -126,17 +126,17 @@ namespace CineQuebec.Windows.BLL.Services
 			return null;
 		}
 
-		public async Task<UpdateResult> UpdateNoteMoyenne(Film pFilm, double pNote)
-		{
-			try
-			{
-				return await _filmRepo.UpdateNoteMoyenne(pFilm, pNote);
-			} catch (Exception ex)
-			{
-				Console.Error.WriteLine(ex.Message);
-			}
-			return Unacknowledged.Instance;
-		}
+		//public async Task<UpdateResult> UpdateNoteMoyenne(Film pFilm, double pNote)
+		//{
+		//	try
+		//	{
+		//		return await _filmRepo.UpdateNoteMoyenne(pFilm, pNote);
+		//	} catch (Exception ex)
+		//	{
+		//		Console.Error.WriteLine(ex.Message);
+		//	}
+		//	return Unacknowledged.Instance;
+		//}
 
 		public async Task<List<Film>> GetFilmsWithIds(List<ObjectId> pIds)
 		{

@@ -143,26 +143,26 @@ namespace CineQuebec.Windows.DAL.Repositories
 			return null;
 		}
 
-		public async Task<UpdateResult> UpdateNoteMoyenne(Film pFilm, double pNote)
-		{
-			try
-			{
-				FilterDefinition<Film> filter = Builders<Film>.Filter.Eq(f => f.Id, pFilm.Id);
+		//public async Task<UpdateResult> UpdateNoteMoyenne(Film pFilm, double pNote)
+		//{
+		//	try
+		//	{
+		//		FilterDefinition<Film> filter = Builders<Film>.Filter.Eq(f => f.Id, pFilm.Id);
 
-				Film film = await _collection.Find(filter).FirstOrDefaultAsync();
+		//		Film film = await _collection.Find(filter).FirstOrDefaultAsync();
 
-				if (film.NoteMoyenne == null)
-					film.NoteMoyenne = pNote;
-				else
-					film.NoteMoyenne = (film.NoteMoyenne + pNote)/2;
+		//		if (film.NoteMoyenne == null)
+		//			film.NoteMoyenne = pNote;
+		//		else
+		//			film.NoteMoyenne = (film.NoteMoyenne + pNote)/2;
 
-				return await UpdateFilm(pFilm);
-			}catch (Exception ex)
-			{
-				Console.WriteLine($"Erreur lors de la modification de la note moyenne du film : {ex.Message}");
-			}
-			return Unacknowledged.Instance;
-		}
+		//		return await UpdateFilm(pFilm);
+		//	}catch (Exception ex)
+		//	{
+		//		Console.WriteLine($"Erreur lors de la modification de la note moyenne du film : {ex.Message}");
+		//	}
+		//	return Unacknowledged.Instance;
+		//}
 
 		public async Task<List<Film>> GetFilmsWithIds(List<ObjectId> pIds)
 		{

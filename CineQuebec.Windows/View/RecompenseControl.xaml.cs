@@ -42,8 +42,7 @@ namespace CineQuebec.Windows.View
             _abonneService = abonneService;
             _projectionService = projectionService;
             _Abonnes = _abonneService.ObtenirAbonnes().OrderByDescending(x => x.Reservations.Count).ToList();
-            _filmService = filmService;
-            //AfficherListeAbonnes();
+            _filmService = filmService;           
         }
 
         public void AfficherListeAbonnesTicket()
@@ -62,13 +61,9 @@ namespace CineQuebec.Windows.View
                     lstAbonnes.Items.Add(abonne);
                 }
            
-           
         }
         public void AfficherListeAbonnesPremiere()
-        {
-        
-               
-
+        {       
                 var Abonnes = _Abonnes.Where(x => x.Preferences.Any(z => z.IdCategorie == ObjectId.Empty)).OrderByDescending(y => y.Preferences.Count);
                 lstAbonnes.Items.Clear();
                 foreach (Abonne abonne in Abonnes)
@@ -96,8 +91,6 @@ namespace CineQuebec.Windows.View
                 _recompenseService.AjouterRecompense(Recompense);
                 MessageBox.Show($"La récompense à été ajouté avec succès");
                 DialogResult = true;
-                
-
             }
             else
             {

@@ -36,12 +36,10 @@ namespace CineQuebec.Windows.View
         public PreferencesAbonne(IActeurService acteurService, ICategorieService categorieService, IRealisateurService realisateurService, IPreferenceService preferenceService)
         {
             InitializeComponent();
-            //_abonneService = abonneService;
             _acteurService = acteurService;
             _categorieService = categorieService;
             _realisateurService = realisateurService;
             _preferenceService = preferenceService;
-            //_listeDesUsers = _abonneService.ObtenirAbonnes();
             _listeDesActeurs = _acteurService.ObtenirActeurs();
             _listeCategories = _categorieService.GetAllCategories().Result;
             _listeRealisateurs = _realisateurService.ObtenirRealisateurs();

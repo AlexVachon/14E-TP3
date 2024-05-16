@@ -53,9 +53,7 @@
 
                 <TextBlock Grid.Row="5" Grid.Column="0" Margin="20,5,36,11" Text="Acteur(s)" Grid.ColumnSpan="4"/>
                 <TextBox x:Name="txtActeurs" Grid.Row="5" Grid.Column="3" Height="26" Width="200" Margin="21,0,0,0" IsEnabled="False"  HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2"  />
-                
-                <!--<TextBlock Grid.Row="6" Grid.Column="0" Margin="20,5,36,11" Text="A l'affiche" Grid.ColumnSpan="4"/>
-                <CheckBox x:Name="checkAffiche"  Grid.Row="6" Grid.Column="3"  Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="21,0,0,0"/>-->
+            
             </Grid>
         </GroupBox>
     </Grid>

@@ -41,6 +41,7 @@ namespace CineQuebec.Windows.View
 			_projectionService = projectionService;
 			_reservationService = reservationService;
 			_acteurService = acteurService;
+		}
 
  		private void Button_Profile_Click(object sender, RoutedEventArgs e)
 		{

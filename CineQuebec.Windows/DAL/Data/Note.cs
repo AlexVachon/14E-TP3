@@ -11,10 +11,18 @@ namespace CineQuebec.Windows.DAL.Data
     {
         public ObjectId Id { get; set; }
         public int NoteFilm {  get; set; }
-        public Film Film { get; set; }
-        public Abonne Abonne { get; set; }
-        public Realisateur Realisateur { get; set; }
-        public Acteur Acteur { get; set; }
-        public Categorie Categorie { get; set; }
+        public ObjectId FilmID { get; set; }
+        public ObjectId AbonneID { get; set; }
+        //public Realisateur Realisateur { get; set; }
+        //public Acteur Acteur { get; set; }
+        //public Categorie Categorie { get; set; }
+
+        public Note() { }
+        public Note(ObjectId pFilmID, ObjectId abonne, int pNote)
+        {
+            FilmID = pFilmID;
+			AbonneID = abonne;
+            NoteFilm = pNote;
+        }
     }
 }

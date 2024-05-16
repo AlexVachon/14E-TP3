@@ -2,12 +2,14 @@
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Interfaces;
 using CineQuebec.Windows.DAL.Repositories;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MongoDB.Driver.UpdateResult;
 
 namespace CineQuebec.Windows.BLL.Services
 {
@@ -123,6 +125,29 @@ namespace CineQuebec.Windows.BLL.Services
 			}
 			return null;
 		}
-		
+
+		//public async Task<UpdateResult> UpdateNoteMoyenne(Film pFilm, double pNote)
+		//{
+		//	try
+		//	{
+		//		return await _filmRepo.UpdateNoteMoyenne(pFilm, pNote);
+		//	} catch (Exception ex)
+		//	{
+		//		Console.Error.WriteLine(ex.Message);
+		//	}
+		//	return Unacknowledged.Instance;
+		//}
+
+		public async Task<List<Film>> GetFilmsWithIds(List<ObjectId> pIds)
+		{
+			try
+			{
+				return await _filmRepo.GetFilmsWithIds(pIds);
+			}catch(Exception ex)
+			{
+				Console.Error.WriteLine(ex.Message);
+			}
+			return null;
+		}
 	}
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MongoDB.Driver.UpdateResult;
 
 namespace CineQuebec.Windows.DAL.Repositories
 {
@@ -138,6 +139,40 @@ namespace CineQuebec.Windows.DAL.Repositories
 			}catch (Exception ex)
 			{
 				Console.WriteLine($"Erreur lors de la modification du film : {ex.Message}");
+			}
+			return null;
+		}
+
+		//public async Task<UpdateResult> UpdateNoteMoyenne(Film pFilm, double pNote)
+		//{
+		//	try
+		//	{
+		//		FilterDefinition<Film> filter = Builders<Film>.Filter.Eq(f => f.Id, pFilm.Id);
+
+		//		Film film = await _collection.Find(filter).FirstOrDefaultAsync();
+
+		//		if (film.NoteMoyenne == null)
+		//			film.NoteMoyenne = pNote;
+		//		else
+		//			film.NoteMoyenne = (film.NoteMoyenne + pNote)/2;
+
+		//		return await UpdateFilm(pFilm);
+		//	}catch (Exception ex)
+		//	{
+		//		Console.WriteLine($"Erreur lors de la modification de la note moyenne du film : {ex.Message}");
+		//	}
+		//	return Unacknowledged.Instance;
+		//}
+
+		public async Task<List<Film>> GetFilmsWithIds(List<ObjectId> pIds)
+		{
+			try
+			{
+				FilterDefinition<Film> filter = Builders<Film>.Filter.In(f => f.Id, pIds);
+				return await _collection.Find(filter).ToListAsync();
+			}catch (Exception ex)
+			{
+				Console.WriteLine($"Impossible d'obtenir les films visionnés par l'abonné : {ex.Message}");
 			}
 			return null;
 		}

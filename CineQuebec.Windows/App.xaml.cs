@@ -39,6 +39,7 @@ namespace CineQuebec.Windows
                 services.AddSingleton<IReservationService, ReservationService>();
                 services.AddSingleton<IRecompenseService, RecompenseService>();
                 services.AddSingleton<ITypeRecompenseService, TypeRecompenseService>();
+                services.AddSingleton<INoteService, NoteService>();
 
                 services.AddSingleton<IAbonneRepository, AbonneRepository>();
                 services.AddSingleton<IActeurRepository, ActeurRepository>();
@@ -51,6 +52,7 @@ namespace CineQuebec.Windows
                 services.AddSingleton<IReservationRepository, ReservationRepository>();
                 services.AddSingleton<IRecompenseRepository, RecompenseRepository>();
                 services.AddSingleton<ITypeRecompenseRepository, TypeRecompenseRepository>();
+                services.AddSingleton<INoteRepository, NoteRepository>();
 
 				services.AddSingleton<AbonneHomeControl>();
 

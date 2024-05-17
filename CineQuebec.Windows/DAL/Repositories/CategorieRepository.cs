@@ -1,5 +1,6 @@
 ﻿using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Interfaces;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -15,7 +16,7 @@ namespace CineQuebec.Windows.DAL.Repositories
 
         IMongoCollection<Categorie> _collection;
 
-		public CategorieRepository()
+		public CategorieRepository(IConfiguration configuration) : base(configuration)
         {
             _collection = database.GetCollection<Categorie>(name: "Categories");
         } 

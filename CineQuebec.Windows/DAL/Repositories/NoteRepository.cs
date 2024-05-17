@@ -1,5 +1,6 @@
 ﻿using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Interfaces;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -15,8 +16,8 @@ namespace CineQuebec.Windows.DAL.Repositories
 
 		IMongoCollection<Note> _collection;
 
-		public NoteRepository()
-		{
+		public NoteRepository(IConfiguration configuration) : base(configuration)
+        {
 			_collection = database.GetCollection<Note>(name: "Notes");
 		}
 

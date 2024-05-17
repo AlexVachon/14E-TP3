@@ -1,5 +1,6 @@
 ﻿using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Interfaces;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -14,7 +15,7 @@ namespace CineQuebec.Windows.DAL.Repositories
     {
         IMongoCollection<Recompense> _collection;
 
-        public RecompenseRepository()
+        public RecompenseRepository(IConfiguration configuration) : base(configuration)
         {
             _collection = database.GetCollection<Recompense>("Recompences");
         }

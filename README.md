@@ -34,3 +34,9 @@ Ouiza Meziani
 ## Amélioration suggérée :
   Ajouter des éléments de design pour rendre l'application plus esthétique.
 
+## Exportation de la base de donnée
+Télécharger et installer MongoDb database tools
+exécuter la commande:
+## mongorestore --uri mongodb://localhost:27017 outputDirectory 
+ou  outputDirectory est le chemin vers le dossier dump de la base de données.qui se trouve sous le nom de "BaseDonnée" dans la solution du projet.
+

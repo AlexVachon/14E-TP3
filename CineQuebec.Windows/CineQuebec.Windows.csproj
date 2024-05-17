@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
     <None Remove="Ressources\images\img_defaut.png" />
     <None Remove="Ressources\Images\logoCinema.png" />
     <None Remove="Ressources\Images\logoCinemaWithoutText.png" />
@@ -17,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Ressources\images\img_defaut.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

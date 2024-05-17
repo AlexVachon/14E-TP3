@@ -1,4 +1,5 @@
 ﻿using CineQuebec.Windows.DAL.Interfaces;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,19 @@ namespace CineQuebec.Windows.DAL.Repositories
     /// </summary>
     public class BaseRepository 
     {
+        private IConfiguration _configuration;
         private IMongoClient mongoDBClient;
         protected IMongoDatabase database;
-        private string connexionString = "mongodb+srv://dev:QWERTY123@cluster0.usnpoav.mongodb.net/";
+        private string connexionString = "";
 
-        public BaseRepository(IMongoClient client = null)
+        public BaseRepository(IConfiguration pConfiguration, IMongoClient client = null)
         {
+            _configuration = pConfiguration;
+            connexionString = _configuration["ConnectionString"]!;
             mongoDBClient = client ?? OuvrirConnexion();
             database = ConnectDatabase();
+           
+           
         }
 
         /// <summary>

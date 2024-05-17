@@ -3,6 +3,7 @@ using CineQuebec.Windows.DAL.Exceptions;
 using CineQuebec.Windows.DAL.Interfaces;
 using CineQuebec.Windows.View;
 using Konscious.Security.Cryptography;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -20,7 +21,7 @@ namespace CineQuebec.Windows.DAL.Repositories
     {
         private IMongoCollection<Abonne> _collection;
        
-        public UserRepository()
+        public UserRepository(IConfiguration configuration) : base(configuration)
         {
             _collection = database.GetCollection<Abonne>("Abonnes");
         }

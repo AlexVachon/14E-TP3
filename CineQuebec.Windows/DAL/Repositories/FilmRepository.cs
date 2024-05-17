@@ -1,5 +1,6 @@
 ﻿using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Interfaces;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -15,8 +16,8 @@ namespace CineQuebec.Windows.DAL.Repositories
 	{
 		IMongoCollection<Film> _collection;
 
-		public FilmRepository()
-		{
+		public FilmRepository(IConfiguration configuration) : base(configuration)
+        {
 			_collection = database.GetCollection<Film>(name: "Films");
 		}
 

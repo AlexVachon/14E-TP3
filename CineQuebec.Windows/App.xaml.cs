@@ -1,12 +1,15 @@
-﻿using CineQuebec.Windows.BLL.Interfaces;
+﻿//using Castle.Core.Configuration;
+using CineQuebec.Windows.BLL.Interfaces;
 using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL.Interfaces;
 using CineQuebec.Windows.DAL.Repositories;
 using CineQuebec.Windows.View;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 
@@ -18,9 +21,12 @@ namespace CineQuebec.Windows
     public partial class App : Application
     {
         IHost host;
+        public IConfiguration configuation { get; set; }
         public App()
         {
-             host = Host.CreateDefaultBuilder().ConfigureServices((context, services ) =>
+             host = Host.CreateDefaultBuilder()
+                
+                .ConfigureServices((context, services ) =>
             {
                 services.AddSingleton<Configuration>();
                 services.AddSingleton<MainWindow>();
@@ -62,6 +68,10 @@ namespace CineQuebec.Windows
         }
         protected override async void OnStartup(StartupEventArgs e)
         {
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            configuation = builder.Build();
             await host.StartAsync();
             var startupForm = host.Services.GetRequiredService<MainWindow>();
             startupForm.Show();

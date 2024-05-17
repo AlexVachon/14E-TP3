@@ -1,5 +1,7 @@
-﻿using CineQuebec.Windows.DAL.Data;
+﻿
+using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Interfaces;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -13,10 +15,12 @@ namespace CineQuebec.Windows.DAL.Repositories
     {
 
         IMongoCollection<Abonne> _collection;
+       
 
-        public AbonneRepository()
+        public AbonneRepository(IConfiguration configuration):base(configuration)
         {
             _collection = database.GetCollection<Abonne>("Abonnes");
+
         }
 
       
